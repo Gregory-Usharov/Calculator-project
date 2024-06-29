@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}\\\\include/**",
+                "C:\\\\Program Files (x86)\\\\wxWidgets\\\\include/**",
+                "C:\\Program Files (x86)\\wxWidgets\\lib",
+                "C:/Program Files (x86)/wxWidgets/lib/gcc_x64_dll/mswu",
+                "C:/Program Files (x86)/wxWidgets/include",
+                "${workspaceFolder}/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "windows-gcc-x86",
+            "configurationProvider": "ms-vscode.cpptools"
+        }
+    ],
+    "version": 4
+}

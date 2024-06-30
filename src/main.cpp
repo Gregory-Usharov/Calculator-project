@@ -30,6 +30,8 @@ wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(ID_Hello,   MyFrame::OnHello)
     EVT_MENU(wxID_EXIT,  MyFrame::OnExit)
     EVT_MENU(wxID_ABOUT, MyFrame::OnAbout)
+    //EVT_MENU(wxID_ABOUT, MyFrame::OnButton)
+    
 wxEND_EVENT_TABLE()
 wxIMPLEMENT_APP(MyApp);
 
@@ -39,11 +41,16 @@ bool MyApp::OnInit(){
     return true;
 }
 MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size): wxFrame(NULL, wxID_ANY, title, pos, size){
-    std::vector<wxButton*> nums (10);
-    wxButton* test = new wxButton(this, wxID_ANY, std::to_string(9), wxPoint(100, 50), wxSize(100, 35));
-    for(int i = 0; i < 10; i++){
-        nums[i] = new wxButton(this, wxID_ANY, std::to_string(i), wxPoint(150 + i*10, 50), wxSize(100, 35));
+    std::vector<wxButton*> nums (9);
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            nums[i] = new wxButton(this, wxID_ANY, std::to_string(j + i*3 + 1), wxPoint(30 + j*110, 185 + i * 110), wxSize(100, 100));
+        }
+        
     }
+    wxButton* mulButton = new wxButton(this, wxID_ANY, "*", wxPoint(300, 185), wxSize(100, 100));
+    wxButton* divButton = new wxButton(this, wxID_ANY, "/", wxPoint(300, 100), wxSize(100, 100));
+    wxButton* subButton = new wxButton(this, wxID_ANY, "-", wxPoint(300, 300), wxSize(100, 100));
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello... \t Ctrl-H", "Help string shown RaAHHHHHHHHHHHHHHHHHHHH");
     menuFile->AppendSeparator();
@@ -68,3 +75,6 @@ void MyFrame::OnAbout(wxCommandEvent& event){
 void MyFrame::OnHello(wxCommandEvent& event){
     wxLogMessage("Hello world from wxWidgets!");
 }
+//void MyFrame::OnButtonlClick(wxCommandEvent& event){
+
+//}

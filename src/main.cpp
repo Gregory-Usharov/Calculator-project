@@ -26,6 +26,29 @@ enum{
     ID_Hello = 1
     
 };
+
+/*class AddTextControls()
+{
+    //creazione font
+    wxFont Expression(10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT, false, "Lato");
+    wxFont Main(30, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT, false, "Lato");
+
+    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+
+    ExpText = new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxNO_BORDER);
+    ExpText->SetFont(Expression);
+    ExpText->SetForegroundColour(wxColour(125, 125, 125));
+    sizer->Add(ExpText, 1, wxEXPAND);
+
+    MainText = new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxNO_BORDER);
+    MainText->SetFont(Main);
+    MainText->SetForegroundColour(wxColour(55, 55, 55));
+    MainText->Bind(wxEVT_TEXT, &Main::OnTextChange, this);
+    sizer->Add(MainText, 2, wxEXPAND);
+
+    MainSizer->Add(sizer, 4, wxEXPAND);
+}
+*/
 wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
     EVT_MENU(ID_Hello,   MyFrame::OnHello)
     EVT_MENU(wxID_EXIT,  MyFrame::OnExit)
@@ -45,12 +68,65 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size):
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
             nums[i] = new wxButton(this, wxID_ANY, std::to_string(j + i*3 + 1), wxPoint(30 + j*110, 185 + i * 110), wxSize(100, 100));
+            nums[i]->SetFont(
+                wxFontInfo(wxSize(0, nums[i]->GetSize().y / 1.3))
+                    .Family(wxFONTFAMILY_SWISS)
+                    .FaceName("Lato")
+                    .Bold()
+            );
         }
         
     }
-    wxButton* mulButton = new wxButton(this, wxID_ANY, "*", wxPoint(300, 185), wxSize(100, 100));
-    wxButton* divButton = new wxButton(this, wxID_ANY, "/", wxPoint(300, 100), wxSize(100, 100));
-    wxButton* subButton = new wxButton(this, wxID_ANY, "-", wxPoint(300, 300), wxSize(100, 100));
+    wxTextCtrl* outputStr = new wxTextCtrl(this,wxID_ANY, " ",wxPoint(30, 21), wxSize(540, 150));
+    outputStr->Disable();
+    //wxButton* lbracButton = new wxButton(this, wxID_ANY, "(", wxPoint(300, 300), wxSize(100, 100));
+    //wxButton* rbracButton = new wxButton(this, wxID_ANY, ")", wxPoint(400, 300), wxSize(100, 100));
+    wxButton* mulButton = new wxButton(this, wxID_ANY, "x", wxPoint(360, 185), wxSize(100, 100));
+    wxButton* divButton = new wxButton(this, wxID_ANY, "/", wxPoint(470, 185), wxSize(100, 100));
+    wxButton* subButton = new wxButton(this, wxID_ANY, "-", wxPoint(470, 295), wxSize(100, 100));
+    wxButton* addButton = new wxButton(this, wxID_ANY, "+", wxPoint(360, 295), wxSize(100, 100));
+
+    
+    wxButton* zerButton = new wxButton(this, wxID_ANY, "0", wxPoint(360, 405), wxSize(100, 100));
+    wxButton* equButton = new wxButton(this, wxID_ANY, "=", wxPoint(470, 405), wxSize(100, 100));
+    wxFont* font = new wxFont();
+    //mulButton->SetFont()
+    mulButton->SetFont(
+        wxFontInfo(wxSize(0, mulButton->GetSize().y / 1.3))
+            .Family(wxFONTFAMILY_SWISS)
+            .FaceName("Lato")
+            .Bold()
+        );
+    divButton->SetFont(
+        wxFontInfo(wxSize(0, divButton->GetSize().y / 1.3))
+            .Family(wxFONTFAMILY_SWISS)
+            .FaceName("Lato")
+            .Bold()
+    );
+    subButton->SetFont(
+        wxFontInfo(wxSize(0, subButton->GetSize().y / 1.3))
+            .Family(wxFONTFAMILY_SWISS)
+            .FaceName("Lato")
+            .Bold()
+    );
+    addButton->SetFont(
+        wxFontInfo(wxSize(0, addButton->GetSize().y / 1.3))
+            .Family(wxFONTFAMILY_SWISS)
+            .FaceName("Lato")
+            .Bold()
+    );
+    zerButton->SetFont(
+        wxFontInfo(wxSize(0, zerButton->GetSize().y / 1.3))
+            .Family(wxFONTFAMILY_SWISS)
+            .FaceName("Lato")
+            .Bold()
+    );
+    equButton->SetFont(
+        wxFontInfo(wxSize(0, equButton->GetSize().y / 1.3))
+            .Family(wxFONTFAMILY_SWISS)
+            .FaceName("Lato")
+            .Bold()
+    );
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello... \t Ctrl-H", "Help string shown RaAHHHHHHHHHHHHHHHHHHHH");
     menuFile->AppendSeparator();
@@ -59,7 +135,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size):
     wxMenu *menuTest = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
     wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append( menuFile, "&File" );
+    menuBar->Append(menuFile,"&File");
     menuBar->Append( menuHelp, "&Help" );
     SetMenuBar( menuBar );
     CreateStatusBar();
